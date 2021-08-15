@@ -12,28 +12,8 @@ const guildId = '754243466241769512';
 
 // client initialization + logging in
 // remember to specify only the intents that you need
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES] });
 client.login(token);
-
-
-
-
-
-
-
-
-// messing around w/ permissions
-
-// does my alt have permission to view and send messages in test-channel? if not, give them those perms w/ overwrites
-// actually, nevermind--my alt should only be able to view (edit overwrite)
-// let's take a look at my alt's final perms
-// and in permission flag array form: 
-// kinda feel bad now--let's give my alt the send messages perm back w/ the permissions object
-
-
-
-
-
 
 
 
@@ -72,6 +52,16 @@ const rest = new REST({ version: '9' }).setToken(token);
 	}
 })();
 
+// event handling
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args, client));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args, client));
+	}
+}
+
 // command handling
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
@@ -91,12 +81,3 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-// event handling
-for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args, client));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args, client));
-	}
-}
