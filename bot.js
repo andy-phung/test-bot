@@ -1,6 +1,6 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, Collection, Intents, Guild, GuildMember, Permissions } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('fs');
 // @discordjs/builders, chalk, and winston are also pretty useful
@@ -14,6 +14,28 @@ const guildId = '754243466241769512';
 // remember to specify only the intents that you need
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 client.login(token);
+
+
+
+
+
+
+
+
+// messing around w/ permissions
+
+// does my alt have permission to view and send messages in test-channel? if not, give them those perms w/ overwrites
+// actually, nevermind--my alt should only be able to view (edit overwrite)
+// let's take a look at my alt's final perms
+// and in permission flag array form: 
+// kinda feel bad now--let's give my alt the send messages perm back w/ the permissions object
+
+
+
+
+
+
+
 
 // grabbing events
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
