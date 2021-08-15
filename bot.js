@@ -3,7 +3,6 @@ const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('fs');
-const 
 // @discordjs/builders, chalk, and winston are also pretty useful
 
 // clientId + this guild id and whatever other guild ids you want to use should be stored in config.json as a const and const array, respectively
